@@ -1,0 +1,26 @@
+h2 {
+  font-size: 30px;
+  color: #FFFFFF;
+  letter-spacing: 0.9px;
+  font-weight: bold; }
+
+.wrapper .canvasWrapper {
+  max-width: 800px;
+  max-height: 600px;
+  overflow: scroll; }
+  @media (max-width: 767px) {
+    .wrapper .canvasWrapper {
+      max-width: 300px;
+      max-height: 300px; }
+      .wrapper .canvasWrapper #canvas {
+        height: 300px;
+        width: 300px; } }
+
+.wrapper .btn-toolbar {
+  margin-top: 30px;
+  margin-bottom: 30px; }
+
+.wrapper .scroll {
+  cursor: all-scroll;
+  border: 2px solid #000;
+  padding: 20px; }

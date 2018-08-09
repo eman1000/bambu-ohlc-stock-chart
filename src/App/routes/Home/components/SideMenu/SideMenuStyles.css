@@ -1,0 +1,24 @@
+#stockMenu {
+  width: 100%; }
+  #stockMenu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #b2ffb2; }
+  #stockMenu li a {
+    display: block;
+    color: #606060;
+    padding: 8px 16px;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #fff; }
+  #stockMenu li a.active {
+    background-color: #4CAF50;
+    color: white; }
+  #stockMenu li a:hover:not(.active) {
+    background-color: #00ff00;
+    color: #606060; }
+  #stockMenu .active {
+    background-color: #4CAF50;
+    color: white; }

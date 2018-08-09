@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import 'variables';
+
+
+// Some best-practice CSS that's useful for most apps
+// Just remove them if they're not what you want
+html {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: $app_grey1;
+  overflow-x: hidden;
+}
+
+footer{
+  background-color: $app_black;
+  padding: 15px;
+  color: $app_white;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+#app{
+  padding: 0;
+}
+.navbar-dark{
+  background-color: $app_brown !important;
+}
