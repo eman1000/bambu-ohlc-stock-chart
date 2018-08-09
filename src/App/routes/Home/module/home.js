@@ -10,9 +10,6 @@ const {
   SCALE
 } = constants;
 
-
-
-
 //api call to get stock data
 export function getChartData(payload){
   return (dispatch, store)=>{
@@ -38,7 +35,7 @@ export function getChartData(payload){
         dispatch({
           type:GET_CHART_DATA,
           payload:dataToReturn.reverse()
-        })
+        });
       })
       .catch((error)=>{
 
@@ -48,30 +45,30 @@ export function getChartData(payload){
 
 //select a stock
 export function selectStock(payload){
-  return(dispatch, store)=>{
+  return (dispatch, store)=>{
     dispatch({
       type:SELECT_STOCK,
       payload
-    })
+    });
     dispatch(getChartData());
-  }
+  };
 }
 
 
 //switch the number of stocks to show
 export function toggleNumStocksToShow(payload){
-  return{
+  return {
     type:TOGGLE_NUM_STOCKS_TO_SHOW,
     payload
-  }
+  };
 }
 
 //scale
 export function toggleScale(payload){
-  return{
+  return {
     type:SCALE,
     payload
-  }
+  };
 }
 
 //////////////////
@@ -84,37 +81,34 @@ function handleGetChartData(state, action){
     stockData:{
       $set: action.payload
     }
-  })
+  });
 }
 
 //handle select stock created by SELECT_STOCK
 function handleSelectStock(state, action){
-  const { key, value} = action.payload; 
   return update(state, {
     selectedStock:{
       $set:action.payload
     }
-  })
+  });
 }
 
 //handle toggle the number of stocks to show created by TOGGLE_NUM_STOCKS_TO_SHOW
 function handleToggleNumStock(state, action){
-  const { key, value} = action.payload; 
   return update(state, {
     numberOfStocks:{
       $set:action.payload
     }
-  })
+  });
 }
 
 //handle toggle scale SCALE
 function handleToggleScale(state, action){
-  const { key, value} = action.payload; 
   return update(state, {
     scale:{
       $set:action.payload
     }
-  })
+  });
 }
 const ACTION_HANDLERS = {
   GET_CHART_DATA: handleGetChartData,

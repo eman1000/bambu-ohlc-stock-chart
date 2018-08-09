@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import React, { Component } from "react";
 
 //Components
-import SideMenu from './SideMenu';
+import SideMenu from "./SideMenu";
 
 import "./HomeStyles.css";
 
@@ -16,10 +15,10 @@ class HomePage extends Component {
     this.props.getChartData();
   }
   componentDidUpdate(prevProps, prevState){
-    if(prevProps.stockData !== this.props.stockData){
+    if (prevProps.stockData !== this.props.stockData){
       this.drawOnCanvas();
-    } 
-    if(prevProps.numberOfStocks !== this.props.numberOfStocks){
+    }
+    if (prevProps.numberOfStocks !== this.props.numberOfStocks){
       this.props.getChartData();
     }
 
@@ -27,20 +26,20 @@ class HomePage extends Component {
   drawOnCanvas() {
     if (Array.isArray(this.props.stockData) || this.props.stockData.length) {
 
-      const { scale, stockData, numberOfStocks} = this.props;
+      const { stockData, numberOfStocks} = this.props;
 
-      console.log("drawing", stockData.length)
+      console.log("drawing", stockData.length);
       //get canvas from ref
       const graph = this.refs.canvas;
 
       //to draw to 2d
-      const ctx = this.refs.canvas.getContext('2d');
+      const ctx = this.refs.canvas.getContext("2d");
 
       ctx.clearRect(0, 0, graph.width, graph.height);
 
       const data = stockData;
 
-      if(numberOfStocks !== "all"){
+      if (numberOfStocks !== "all"){
         data.length = 10;
       }
       //shorten array to for visibilty purposes
@@ -59,13 +58,13 @@ class HomePage extends Component {
       data.map((obj, index)=>{
         //console.log("obj", obj);
         return ctx.fillText(obj.key, this.getXPixel(index, data), graph.height - yPadding + 20);
-      })
+      });
 
       //populate y axis with numbers from 1 to 200 in multiples of 10
-      ctx.textAlign = "right"
+      ctx.textAlign = "right";
       ctx.textBaseline = "middle";
-      for(var i = 0; i < maxY; i += 10) {
-          ctx.fillText(i, xPadding - 10, this.getYPixel(i));
+      for (var i = 0; i < maxY; i += 10) {
+        ctx.fillText(i, xPadding - 10, this.getYPixel(i));
       }
 
       /**stoke line on graph for low just some guides for my coding purposes
@@ -97,40 +96,40 @@ class HomePage extends Component {
       **/
 
 
-          //drawing the grid lines => mhhh
-          let gridValue = 0;
-         const maxValue = graph.width;
-          Array(maxValue).fill().map((_, i) => i * i).forEach((obj, index)=>{
-            //console.log("index", index)
-              var gridX = graph.width * (1 - gridValue/maxValue) + 10;
-              ctx.strokeStyle = "#eee";
-              ctx.beginPath();
-              ctx.moveTo(xPadding + gridValue, 0);
-              ctx.lineTo(xPadding + gridValue, graph.height - yPadding);
-              ctx.stroke();
-              gridValue+=10;
-          })
-          
+      //drawing the grid lines => mhhh
+      let gridValue = 0;
+      const maxValue = graph.width;
+      Array(maxValue).fill().map((_) => i * i).forEach((obj, index)=>{
+        //console.log("index", index)
+        //var gridX = graph.width * (1 - gridValue / maxValue) + 10;
+        ctx.strokeStyle = "#eee";
+        ctx.beginPath();
+        ctx.moveTo(xPadding + gridValue, 0);
+        ctx.lineTo(xPadding + gridValue, graph.height - yPadding);
+        ctx.stroke();
+        gridValue += 10;
+      });
+
 
 
       data.map((obj,index)=>{
-        if(obj["4. close"] > obj["1. open"]){
+        if (obj["4. close"] > obj["1. open"]){
           //draw bullish bar
           this.drawBar(ctx, this.getXPixel(index, data), this.getYPixel(obj["2. high"]), 5, (this.getYPixel(obj["3. low"]) - this.getYPixel(obj["2. high"])) , "#00FF00");
 
           //drall small bullish bars
           this.drawSmallBar(ctx, this.getXPixel(index, data), this.getYPixel(obj["1. open"]), 10, 5, "#00FF00", -5);
           this.drawSmallBar(ctx, this.getXPixel(index, data), this.getYPixel(obj["4. close"]), 10, 5, "#00FF00", 5);
-        }else{
+        } else {
           //draw bearish bar
-          this.drawBar(ctx, this.getXPixel(index, data), this.getYPixel(obj["2. high"]), 5, (this.getYPixel(obj["3. low"]) - this.getYPixel(obj["2. high"])) , "#f00")
+          this.drawBar(ctx, this.getXPixel(index, data), this.getYPixel(obj["2. high"]), 5, (this.getYPixel(obj["3. low"]) - this.getYPixel(obj["2. high"])) , "#f00");
 
           //draw small bearish bars
           this.drawSmallBar(ctx, this.getXPixel(index, data), this.getYPixel(obj["1. open"]), 10, 5, "#f00", -5);
           this.drawSmallBar(ctx, this.getXPixel(index, data), this.getYPixel(obj["4. close"]), 10, 5, "#f00", 5);
         }
 
-      })
+      });
 
     }
 
@@ -138,14 +137,14 @@ class HomePage extends Component {
 
   drawBar(ctx, upperLeftCornerX, upperLeftCornerY, width, height,color){
     ctx.save();
-    ctx.fillStyle=color;
+    ctx.fillStyle = color;
     ctx.fillRect(upperLeftCornerX,upperLeftCornerY,width,height);
     ctx.restore();
   }
 
   drawSmallBar(ctx, upperLeftCornerX, upperLeftCornerY, width, height,color, addPadding){
     ctx.save();
-    ctx.fillStyle=color;
+    ctx.fillStyle = color;
     ctx.fillRect(upperLeftCornerX + addPadding,upperLeftCornerY,width,height);
     ctx.restore();
   }
@@ -162,13 +161,13 @@ class HomePage extends Component {
 
   /**getMaxY() {
     var max = 0;
-     
+
     for(var i = 0; i < data.values.length; i ++) {
         if(data.values[i].Y > max) {
             max = data.values[i].Y;
         }
     }
-     
+
     max += 10 - max % 10;
     return max;
   }**/
@@ -193,12 +192,11 @@ class HomePage extends Component {
       scale,
       selectedStock,
       toggleNumStocksToShow,
-      toggleScale
     } = this.props;
-    return ( 
-      <div className="row wrapper"> 
+    return (
+      <div className="row wrapper">
         <div className="col-xs-4">
-          <SideMenu stockList={stockList} selectStock={selectStock} selectedStock={selectedStock}/>  
+          <SideMenu stockList={stockList} selectStock={selectStock} selectedStock={selectedStock}/>
         </div>
         <div className="col-xs-6">
           <div className={`canvasWrapper ${(scale === 2) ? "scroll" : ""}`}>
@@ -217,8 +215,8 @@ class HomePage extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
-};
+}
 
 export default HomePage;

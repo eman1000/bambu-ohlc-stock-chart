@@ -1,13 +1,12 @@
-import React from 'react';
-import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink, DropdownToggle, DropdownItem, UncontrolledDropdown, DropdownMenu } from 'reactstrap';
-import classnames from 'classnames';
+import React from "react";
+import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } from "reactstrap";
 
 //import logo from '../../assets/logo.svg';
 
 const links = [
   {
-    to: '/nothing-here',
-    text: 'Some Dead Page'
+    to: "/nothing-here",
+    text: "Some Dead Page"
   }
   /*{
     to: '/this-is-broken',
@@ -36,7 +35,7 @@ export default class Header extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
-//export default ({ isAuthenticated, current }) => (
+  //export default ({ isAuthenticated, current }) => (
 
   render(){
     const { isAuthenticated, current } = this.props;
@@ -49,25 +48,25 @@ export default class Header extends React.Component {
           </span>
         </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav navbar>
-              {links.map((link, index) => {
-                const TheLink = <HeaderLink key={index} current={current} {...link} />;
+        <Collapse isOpen={this.state.isOpen} navbar>
+          <Nav navbar>
+            {links.map((link, index) => {
+              const TheLink = <HeaderLink key={index} current={current} {...link} />;
 
-                if (link.hasOwnProperty('auth')) {
-                  if (link.auth && isAuthenticated) {
-                    return TheLink;
-                  } else if (!link.auth && !isAuthenticated) {
-                    return TheLink;
-                  }
-
-                  return null;
+              if (link.hasOwnProperty("auth")) {
+                if (link.auth && isAuthenticated) {
+                  return TheLink;
+                } else if (!link.auth && !isAuthenticated) {
+                  return TheLink;
                 }
 
-                return TheLink;
-              })}
-            </Nav>
-          </Collapse>
+                return null;
+              }
+
+              return TheLink;
+            })}
+          </Nav>
+        </Collapse>
       </Navbar>
     );
   }

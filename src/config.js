@@ -1,3 +1,3 @@
-export default { 
-  API_URL: 'https://www.alphavantage.co',
+export default {
+  API_URL: "https://www.alphavantage.co",
 };

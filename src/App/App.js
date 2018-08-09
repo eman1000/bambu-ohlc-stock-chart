@@ -1,12 +1,12 @@
 // The basics
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { withRouter } from "react-router";
 
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Routes from './routes';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Routes from "./routes";
 
 // import './app.css';
 

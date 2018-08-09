@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import "./SideMenuStyles.css";
 
 const SideMenu = ({stockList, selectStock, selectedStock}) => (
@@ -6,13 +6,13 @@ const SideMenu = ({stockList, selectStock, selectedStock}) => (
     <ul>
       {
         stockList.map((val, index)=>{
-          return(
+          return (
             <li key={index} onClick={()=>selectStock(val)}><a className={(selectedStock === val) ? "active" : ""}>{val}</a></li>
-          )
+          );
         })
-      
+
       }
-    </ul> 
+    </ul>
   </div>
 );
 
