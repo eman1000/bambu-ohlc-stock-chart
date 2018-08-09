@@ -11,7 +11,8 @@ const mapStateToProps = (state) => ({
   stockData: state.home.stockData,
   selectedStock: state.home.selectedStock,
   numberOfStocks: state.home.numberOfStocks,
-  scale: state.home.scale
+  scale: state.home.scale,
+  loading: state.home.loading
 });
 
 const mapDispatchToProps = {

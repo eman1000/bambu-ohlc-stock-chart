@@ -7,28 +7,33 @@ const {
   GET_CHART_DATA,
   SELECT_STOCK,
   TOGGLE_NUM_STOCKS_TO_SHOW,
-  SCALE
+  SCALE,
+  TOGGLE_LOADER
 } = constants;
 
 //api call to get stock data
 export function getChartData(payload){
   return (dispatch, store)=>{
     const { selectedStock } = store().home;
-    //dispatch(toggleLoader(true));
+    dispatch(toggleLoader(true));
     // Send a POST request
     request({
       method: "get",
       url: "/query",
       params: {
-        function:"TIME_SERIES_MONTHLY",
+        function:"TIME_SERIES_DAILY",
         symbol:selectedStock,
         apikey:"PMYSU8X8BFN5TIQD"
       }
     })
       .then((response)=>{
+        if(response.Information){
+          alert(response.Information);
+        }
+        dispatch(toggleLoader(false));
         console.log("response", response);
         const dataToReturn = [];
-        const msft = response["Monthly Time Series"];
+        const msft = response["Time Series (Daily)"];
         Object.keys(msft).map((val)=>{
           dataToReturn.push({key:val, ...msft[val]});
         });
@@ -38,6 +43,8 @@ export function getChartData(payload){
         });
       })
       .catch((error)=>{
+        dispatch(toggleLoader(false));
+        console.log("error", error);
 
       });
   };
@@ -67,6 +74,14 @@ export function toggleNumStocksToShow(payload){
 export function toggleScale(payload){
   return {
     type:SCALE,
+    payload
+  };
+}
+
+//toggle loader
+export function toggleLoader(payload){
+  return {
+    type:TOGGLE_LOADER,
     payload
   };
 }
@@ -110,18 +125,29 @@ function handleToggleScale(state, action){
     }
   });
 }
+
+//handle toggle loader created by TOGGLE_LOADER
+function handleToggleLoader(state, action){
+  return update(state, {
+    loading:{
+      $set:action.payload
+    }
+  });
+}
 const ACTION_HANDLERS = {
   GET_CHART_DATA: handleGetChartData,
   SELECT_STOCK: handleSelectStock,
   TOGGLE_NUM_STOCKS_TO_SHOW:handleToggleNumStock,
-  SCALE:handleToggleScale
+  SCALE:handleToggleScale,
+  TOGGLE_LOADER: handleToggleLoader
 };
 
 const initialState = {
   stockData:{},
   selectedStock:"MSFT",
   numberOfStocks:10,
-  scale:1
+  scale:1,
+  loading: false
 };
 
 export default function HomeReducer(state = initialState, action) {

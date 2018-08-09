@@ -2,12 +2,12 @@ import React, { Component } from "react";
 
 //Components
 import SideMenu from "./SideMenu";
-
+import Loader from "../../../components/Loader";
 import "./HomeStyles.css";
 
 //default constants
 const xPadding = 30;
-const yPadding = 30;
+const yPadding = 50;
 const maxY = 200;
 
 class HomePage extends Component {
@@ -138,7 +138,8 @@ class HomePage extends Component {
   drawBar(ctx, upperLeftCornerX, upperLeftCornerY, width, height,color){
     ctx.save();
     ctx.fillStyle = color;
-    ctx.fillRect(upperLeftCornerX,upperLeftCornerY,width,height);
+
+    ctx.fillRect(upperLeftCornerX,upperLeftCornerY,width,height + 10);//added 10 to make it more visible can be removed
     ctx.restore();
   }
 
@@ -214,6 +215,10 @@ class HomePage extends Component {
             </div>
           </div>
         </div>
+        {
+          this.props.loading &&
+          <Loader/>
+        }
       </div>
     );
   }
